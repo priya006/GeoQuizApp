@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="730dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="44dp"
+        android:gravity="center"
+        android:text="@string/question_text"
+        tools:text = "Canberra is the capital of Australia."/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/true_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="True" />
+
+        <Button
+            android:id="@+id/false_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="False" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_triangle"
+        android:text="Next" />
+
+
+</LinearLayout>
+
