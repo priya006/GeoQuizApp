@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="44dp"
         android:gravity="center"
-        android:text="@string/question_text"
+        android:text="@string/question_oceans"
         tools:text = "Canberra is the capital of Australia."/>
 
 
