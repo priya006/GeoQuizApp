@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var falseButton: Button
     private lateinit var nextButton: Button
     private lateinit var rootView: View
-
+    var currentIndex = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -47,7 +47,10 @@ class MainActivity : AppCompatActivity() {
             val textView = findViewById<TextView>(R.id.text_view)
             //Get the questions
             val listOfQuestions = listOfQuestions(context = this@MainActivity)
-            displayQuestions(questionsList = listOfQuestions, textView = textView)
+            var firstQuestion = listOfQuestions.get(currentIndex)
+            textView.text = firstQuestion.resID
+            currentIndex ++
+
         }
     }
 
@@ -68,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     private fun displayQuestions(questionsList: MutableList<Question>, textView: TextView) {
         val stringBuilder = StringBuilder()
        for(question in questionsList){
-           stringBuilder.append(question.answer).append("\n")
+           stringBuilder.append(question).append("\n")
        }
         textView.text = stringBuilder.toString()
     }
