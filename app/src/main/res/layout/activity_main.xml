@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="730dp"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -40,8 +41,9 @@
         android:id="@+id/next_button"
         android:layout_width="124dp"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_triangle"
-        android:text="Next" />
+        android:text="Next"
+        app:icon="@drawable/arrow_right_24"
+        app:iconGravity="end"/>
 
 
 </LinearLayout>

@@ -49,12 +49,10 @@ class MainActivity : AppCompatActivity() {
             val listOfQuestions = listOfQuestions(context = this@MainActivity)
             var firstQuestion = listOfQuestions.get(currentIndex)
             textView.text = firstQuestion.resID
-            currentIndex ++
+            currentIndex++
 
         }
     }
-
-
 
 
     //List Of Questions
@@ -70,9 +68,9 @@ class MainActivity : AppCompatActivity() {
     //Append the list Of Questions to a StringBuilder
     private fun displayQuestions(questionsList: MutableList<Question>, textView: TextView) {
         val stringBuilder = StringBuilder()
-       for(question in questionsList){
-           stringBuilder.append(question).append("\n")
-       }
+        for (question in questionsList) {
+            stringBuilder.append(question).append("\n")
+        }
         textView.text = stringBuilder.toString()
     }
 
@@ -85,5 +83,9 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-
+//Use View Binding and get the access of the layout. Remove the individual reference of views
+//Why we need to use the %
+//Set the textView with the data in the list - using View binding
+//checkAnswer(takes boolean) when the user pressed True or false. Checks the Question object and if the user's reply matches what is
+//in the Question object then the corresponding Toast is made
 
