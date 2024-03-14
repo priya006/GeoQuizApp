@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:padding="44dp"
         android:gravity="center"
-        android:text="@string/question_oceans"
-        tools:text = "Canberra is the capital of Australia."/>
+        tools:text = "The Suez Canal connects the Red Sea
+  and the Indian Ocean."/>
 
 
     <LinearLayout
@@ -30,7 +30,7 @@
             android:text="True" />
 
         <Button
-            android:id="@+id/false_button1"
+            android:id="@+id/false_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

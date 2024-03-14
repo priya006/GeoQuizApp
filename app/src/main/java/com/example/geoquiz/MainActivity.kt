@@ -3,8 +3,6 @@ package com.example.geoquiz
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.geoquiz.databinding.ActivityMainBinding
@@ -17,10 +15,14 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SuspiciousIndentation")
 
     var currentIndex = 0
+    var questionsList = mutableListOf<Question>()
+    private lateinit var listOfQuestions : List<Question>
+
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        listOfQuestions = listOfQuestions(context = this@MainActivity)
 
         //inflate the layout using view binding
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,24 +30,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.trueButton.setOnClickListener {
-            //Registering the callBack to run
-            val trueMessage = getString(R.string.true_button)
-            snackBar(trueMessage)
+            //Check the question object
+            if (checkAnswer(true)) {
+                snackBar("Correct: The answer is True")
+            } else {
+                snackBar("Sorry: The answer is False")
+            }
         }
 
 
-        binding.falseButton1.setOnClickListener {
+        binding.falseButton.setOnClickListener {
             //Registering the callBack to run
-            val falseMessage = getString(R.string.false_button)
-            snackBar(falseMessage)
+            if (checkAnswer(false)) {
+                snackBar("Correct: The answer is false")
+            } else {
+                snackBar("Sorry: The answer is True")
+            }
         }
 
         binding.nextButton.setOnClickListener {
             val textView = findViewById<TextView>(R.id.text_view)
             //Get the questions
-            val listOfQuestions = listOfQuestions(context = this@MainActivity)
             var firstQuestion = listOfQuestions.get(currentIndex)
-            textView.text = firstQuestion.resID
+            textView.text = firstQuestion.questionString
             currentIndex++
 
         }
@@ -54,10 +61,11 @@ class MainActivity : AppCompatActivity() {
 
     //List Of Questions
     private fun listOfQuestions(context: Context): MutableList<Question> {
-        val questionsList = mutableListOf<Question>()
+
         questionsList.add(Question(context.getString(R.string.question_mideast), true))
         questionsList.add(Question(context.getString(R.string.question_oceans), false))
         questionsList.add(Question(context.getString(R.string.question_asia), false))
+
         return questionsList
     }
 
@@ -75,16 +83,23 @@ class MainActivity : AppCompatActivity() {
     //Update the TextView with new Questions when the Button Next Is Pressed
 
     private fun snackBar(toastMessage: String) {
-        Snackbar.make(binding.root , toastMessage, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, toastMessage, Snackbar.LENGTH_SHORT).show()
     }
 
 
+    private fun checkAnswer(answer: Boolean): Boolean {
+        //get the current Question object
+        val questionObject = questionsList[currentIndex]
+        if (questionObject.answer == answer) {
+            return true
+        }
+
+        return false
+    }
 }
 
 //TODO
-//Use View Binding and get the access of the layout. Remove the individual reference of views
 //Why we need to use the %
-//Set the textView with the data in the list - using View binding
 //checkAnswer(takes boolean) when the user pressed True or false. Checks the Question object and if the user's reply matches what is
 //in the Question object then the corresponding Toast is made
 

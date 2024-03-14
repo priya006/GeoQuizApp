@@ -1,3 +1,3 @@
 package com.example.geoquiz.dataclass
 
-data class Question(val resID: String, val answer: Boolean)
+data class Question(val questionString: String, val answer: Boolean)
