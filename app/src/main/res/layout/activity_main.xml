@@ -30,7 +30,7 @@
             android:text="True" />
 
         <Button
-            android:id="@+id/false_button"
+            android:id="@+id/false_button1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
