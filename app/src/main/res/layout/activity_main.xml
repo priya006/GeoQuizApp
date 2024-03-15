@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="44dp"
+        android:text="Click me or Tap on Next"
         android:gravity="center"
         tools:text = "The Suez Canal connects the Red Sea
   and the Indian Ocean."/>

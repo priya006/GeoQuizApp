@@ -29,6 +29,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.textView.setOnClickListener {
+            displayNewQuestionToTextView()
+        }
+
         binding.trueButton.setOnClickListener {
             //Check the question object
             if (checkAnswer(true)) {
@@ -49,13 +53,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.nextButton.setOnClickListener {
-            val textView = findViewById<TextView>(R.id.text_view)
-            //Get the questions
-            var firstQuestion = listOfQuestions.get(currentIndex)
-            textView.text = firstQuestion.questionString
-            currentIndex++
-
+            displayNewQuestionToTextView()
         }
+    }
+
+    private fun displayNewQuestionToTextView() {
+        val textView = findViewById<TextView>(R.id.text_view)
+        //Get the questions
+        var firstQuestion = listOfQuestions.get(currentIndex)
+        textView.text = firstQuestion.questionString
+        currentIndex++
     }
 
 
@@ -98,8 +105,4 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-//TODO
-//Why we need to use the %
-//checkAnswer(takes boolean) when the user pressed True or false. Checks the Question object and if the user's reply matches what is
-//in the Question object then the corresponding Toast is made
 
