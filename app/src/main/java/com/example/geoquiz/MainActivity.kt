@@ -14,7 +14,9 @@ import java.lang.StringBuilder
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SuspiciousIndentation")
 
+    //For the Next Button
     var nextIndex = 0
+    //For the Previous Button
     var previousIndex = 0
     var questionsList = mutableListOf<Question>()
     private lateinit var listOfQuestions: List<Question>
