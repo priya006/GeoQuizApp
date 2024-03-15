@@ -11,7 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="44dp"
-        android:text="Click me or Tap on Next"
         android:gravity="center"
         tools:text = "The Suez Canal connects the Red Sea
   and the Indian Ocean."/>
@@ -37,6 +36,18 @@
             android:layout_weight="1"
             android:text="False" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/previous_button"
+            android:layout_width="124dp"
+            android:layout_height="wrap_content"
+            android:text="Previous"
+            app:icon="@drawable/arrow_right_24"
+            app:iconGravity="end"/>
 
     <Button
         android:id="@+id/next_button"
@@ -45,6 +56,8 @@
         android:text="Next"
         app:icon="@drawable/arrow_right_24"
         app:iconGravity="end"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -14,9 +14,10 @@ import java.lang.StringBuilder
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SuspiciousIndentation")
 
-    var currentIndex = 0
+    var nextIndex = 0
+    var previousIndex = 0
     var questionsList = mutableListOf<Question>()
-    private lateinit var listOfQuestions : List<Question>
+    private lateinit var listOfQuestions: List<Question>
 
 
     private lateinit var binding: ActivityMainBinding
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.textView.setOnClickListener {
-            displayNewQuestionToTextView()
+            displayNextQuestion()
         }
 
         binding.trueButton.setOnClickListener {
@@ -53,16 +54,28 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.nextButton.setOnClickListener {
-            displayNewQuestionToTextView()
+            displayNextQuestion()
+        }
+
+        binding.previousButton.setOnClickListener {
+            displayPreviousQuestion()
         }
     }
 
-    private fun displayNewQuestionToTextView() {
+    private fun displayNextQuestion() {
         val textView = findViewById<TextView>(R.id.text_view)
         //Get the questions
-        var firstQuestion = listOfQuestions.get(currentIndex)
+        var firstQuestion = listOfQuestions.get(nextIndex)
         textView.text = firstQuestion.questionString
-        currentIndex++
+        previousIndex = nextIndex - 1
+        nextIndex++
+    }
+
+    private fun displayPreviousQuestion() {
+        val textView = findViewById<TextView>(R.id.text_view)
+        //Get the questions
+        var firstQuestion = listOfQuestions.get(previousIndex)
+        textView.text = firstQuestion.questionString
     }
 
 
@@ -96,7 +109,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkAnswer(answer: Boolean): Boolean {
         //get the current Question object
-        val questionObject = questionsList[currentIndex]
+        val questionObject = questionsList[nextIndex]
         if (questionObject.answer == answer) {
             return true
         }
