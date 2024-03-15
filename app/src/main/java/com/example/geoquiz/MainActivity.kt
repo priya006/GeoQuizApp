@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     //For the Next Button
     var nextIndex = 0
+
     //For the Previous Button
     var previousIndex = 0
     var questionsList = mutableListOf<Question>()
@@ -65,13 +66,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayNextQuestion() {
+
         val textView = findViewById<TextView>(R.id.text_view)
-        //Get the questions
-        var firstQuestion = listOfQuestions.get(nextIndex)
-        textView.text = firstQuestion.questionString
-        previousIndex = nextIndex - 1
-        nextIndex++
+        if (nextIndex < listOfQuestions.size) {
+            //Get the questions
+            var firstQuestion = listOfQuestions[nextIndex]
+            textView.text = firstQuestion.questionString
+            previousIndex = nextIndex - 1
+            if (nextIndex <= 2) {
+                nextIndex++
+            }
+        } else {
+            //reset the nextIndex
+            nextIndex = 0
+        }
     }
+
 
     private fun displayPreviousQuestion() {
         val textView = findViewById<TextView>(R.id.text_view)
