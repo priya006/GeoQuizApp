@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="44dp"
+        android:gravity="center"
+        tools:text = "The Suez Canall connects the Red Sea
+  and the Indian Ocean."/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/true_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="True" />
+
+        <Button
+            android:id="@+id/false_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="False" />
+        <Button
+            android:id="@+id/previous_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous"
+            app:icon="@drawable/baseline_arrow_left_24"
+            app:iconGravity="start"/>
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            app:icon="@drawable/arrow_right_24"
+            app:iconGravity="end"/>
+    </LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:gravity="center">-->
+
+<!--        <Button-->
+<!--            android:id="@+id/previous_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Previous"-->
+<!--            app:icon="@drawable/baseline_arrow_left_24"-->
+<!--            app:iconGravity="start"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/next_button"-->
+<!--            android:layout_width="124dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Next"-->
+<!--            app:icon="@drawable/arrow_right_24"-->
+<!--            app:iconGravity="end"/>-->
+
+<!--    </LinearLayout>-->
+
+
+</LinearLayout>
+

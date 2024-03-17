@@ -1,8 +1,10 @@
 package com.example.geoquiz
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.geoquiz.databinding.ActivityMainBinding
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "Create() called")
         listOfQuestions = listOfQuestions(context = this@MainActivity)
 
         //inflate the layout using view binding
@@ -128,6 +131,8 @@ class MainActivity : AppCompatActivity() {
 
         return false
     }
+
+
 }
 
 
