@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.example.geoquiz.databinding.ActivityMainBinding
@@ -182,7 +183,8 @@ class MainActivity : AppCompatActivity() {
         }
         //do the math and calculate the percentage
         val percentage = (listOfBooleans.size.toDouble() / questionsList.size.toDouble()) * 100
-        println(percentage)
+        val message = "${percentage}"
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         return percentage
     }
 
