@@ -41,21 +41,32 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.trueButton.setOnClickListener {
+
             //Check the question object
             if (checkAnswer(true)) {
                 snackBar("Correct: The answer is True")
             } else {
                 snackBar("Sorry: The answer is False")
             }
+
+            if(handleResponse(true) == true){
+                it.isEnabled = false
+            }
+
         }
 
 
         binding.falseButton.setOnClickListener {
+
             //Registering the callBack to run
             if (checkAnswer(false)) {
                 snackBar("Correct: The answer is false")
             } else {
                 snackBar("Sorry: The answer is True")
+            }
+
+            if(handleResponse(false) == false){
+                it.isEnabled = false
             }
         }
 
@@ -68,8 +79,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayNextQuestion() {
+    private fun handleResponse( userInput : Boolean) :Boolean{
 
+        //Check the answer in the questionList if the answer is true the disable the true button
+        if(questionsList[nextIndex].answer == true){
+            return true
+        }
+
+        if(questionsList[nextIndex].answer == false){
+            return false
+        }
+
+        return false
+    }
+    private fun displayNextQuestion() {
+        binding.falseButton.isEnabled = true
+        binding.trueButton.isEnabled = true
         val textView = findViewById<TextView>(R.id.text_view)
         if (nextIndex < listOfQuestions.size) {
             //Get the questions
