@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.example.geoquiz.databinding.ActivityMainBinding
 import com.example.geoquiz.dataclass.Question
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     //For the Next Button
     var nextIndex = 0
+    var currentIndex = 0
 
     //For the Previous Button
     var previousIndex = 0
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "Create() called")
-        listOfQuestions = listOfQuestions(context = this@MainActivity)
+        listOfQuestions = listOfQuestions()
 
         //inflate the layout using view binding
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -49,10 +51,10 @@ class MainActivity : AppCompatActivity() {
                 snackBar("Sorry: The answer is False")
             }
 
-            if(handleResponse(true) == true){
+            if (handleResponse(true) == true) {
                 it.isEnabled = false
             }
-
+            calculatePercentage(true)
         }
 
 
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 snackBar("Sorry: The answer is True")
             }
 
-            if(handleResponse(false) == false){
+            if (handleResponse(false) == false) {
                 it.isEnabled = false
             }
         }
@@ -77,26 +79,29 @@ class MainActivity : AppCompatActivity() {
         binding.previousButton.setOnClickListener {
             displayPreviousQuestion()
         }
+        calculatePercentage(false)
     }
 
-    private fun handleResponse( userInput : Boolean) :Boolean{
+    private fun handleResponse(userInput: Boolean): Boolean {
 
         //Check the answer in the questionList if the answer is true the disable the true button
-        if(questionsList[nextIndex].answer == true){
+        if (questionsList[nextIndex].answer == true) {
             return true
         }
 
-        if(questionsList[nextIndex].answer == false){
+        if (questionsList[nextIndex].answer == false) {
             return false
         }
 
         return false
     }
+
     private fun displayNextQuestion() {
         binding.falseButton.isEnabled = true
         binding.trueButton.isEnabled = true
         val textView = findViewById<TextView>(R.id.text_view)
-        if (nextIndex < listOfQuestions.size) {
+        if (currentIndex < listOfQuestions.size) {
+            nextIndex = currentIndex
             //Get the questions
             var firstQuestion = listOfQuestions[nextIndex]
             textView.text = firstQuestion.questionString
@@ -108,6 +113,7 @@ class MainActivity : AppCompatActivity() {
             //reset the nextIndex
             nextIndex = 0
         }
+
     }
 
 
@@ -120,13 +126,21 @@ class MainActivity : AppCompatActivity() {
 
 
     //List Of Questions
-    private fun listOfQuestions(context: Context): MutableList<Question> {
+    private fun listOfQuestions(): MutableList<Question> {
 
-        questionsList.add(Question(context.getString(R.string.question_mideast), true))
-        questionsList.add(Question(context.getString(R.string.question_oceans), false))
-        questionsList.add(Question(context.getString(R.string.question_asia), false))
+        questionsList.add(Question(getString(R.string.question_mideast), true))
+        questionsList.add(Question(getString(R.string.question_oceans), false))
+        questionsList.add(Question(getString(R.string.question_asia), false))
 
         return questionsList
+    }
+
+    /*
+         extension function on the Context class. So we can directly call getString
+     */
+
+    fun Context.getString(@StringRes resId: Int): String {
+        return resources.getString(resId)
     }
 
 
@@ -149,15 +163,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkAnswer(answer: Boolean): Boolean {
         //get the current Question object
-        val questionObject = questionsList[nextIndex]
-        if (questionObject.answer == answer) {
+        if (listOfQuestions[nextIndex].answer == answer) {
             return true
         }
 
         return false
     }
 
+    /*
+      Need to make a note of the correct answer - get the number
+      no of correct answers/total no of answer(3) = answer*100
+     */
+    private fun calculatePercentage(userAnswer: Boolean): Double {
+        val listOfBooleans: MutableList<Boolean> = mutableListOf()
+        //compare the user answer and the answer in the Question object
+        if (listOfQuestions[currentIndex].answer == userAnswer) {
+            listOfBooleans.add(userAnswer)
+        }
+        //do the math and calculate the percentage
+        val percentage = (listOfBooleans.size.toDouble() / questionsList.size.toDouble()) * 100
+        println(percentage)
+        return percentage
+    }
 
 }
+
 
 
