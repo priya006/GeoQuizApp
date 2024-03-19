@@ -3,6 +3,10 @@ Practicing to get the GeoQuiz app in place. The idea is TextView Displays differ
 Learnings:
 1. Layout Structuring
 2. How the Data Can be encapsulated in the Data Class
+3. View model class created to store UI related data
+4. Moved the business logic from Activity class to its own viewmodel
+5. Created a seperate Horizontal layout. So the view gets arranged as per the horizontal payout when the screen oritentation is landscape mode
+6. Tested  the app in split screen. Android 13 and above seems to get the muti screem capabillity or multiresume capability for free with zero code. 
 
 
 
