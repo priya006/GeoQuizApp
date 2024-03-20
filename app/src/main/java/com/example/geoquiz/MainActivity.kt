@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var listOfQuestions: List<Question>
     private lateinit var binding: ActivityMainBinding
+
+    // private var quizViewModel: QuizViewModel by viewModels()
     private val quizViewModel: QuizViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,12 +60,9 @@ class MainActivity : AppCompatActivity() {
             }
             quizViewModel.calculatePercentage(listOfQuestions, true)
             println(quizViewModel.message)
-            quizViewModel.message.observe(this@MainActivity, { message ->
-                Log.d("MainActivity", "Received message: $message")
-                Toast.makeText(this@MainActivity, message.toInt(), Toast.LENGTH_SHORT).show()
-            })
-
+            showToastMessage()
         }
+
 
         binding.falseButton.setOnClickListener {
 
@@ -78,10 +77,7 @@ class MainActivity : AppCompatActivity() {
                 it.isEnabled = false
             }
 
-            quizViewModel.message.observe(this@MainActivity, { message ->
-                Log.d("MainActivity", "Received message: $message")
-                Toast.makeText(this@MainActivity, message.toInt(), Toast.LENGTH_SHORT).show()
-            })
+            showToastMessage()
         }
 
         binding.nextButton.setOnClickListener {
@@ -92,6 +88,13 @@ class MainActivity : AppCompatActivity() {
             displayPreviousQuestion()
         }
         quizViewModel.calculatePercentage(listOfQuestions, false)
+    }
+
+    private fun showToastMessage() {
+        quizViewModel.message.observe(this, Observer { message ->
+            Log.d("MainActivity", "Received message: $message")
+            Toast.makeText(this@MainActivity, message.toString(), Toast.LENGTH_SHORT).show()
+        })
     }
 
 
