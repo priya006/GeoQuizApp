@@ -6,8 +6,10 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.geoquiz.ViewModel.QuizViewModel
 import com.example.geoquiz.databinding.ActivityMainBinding
 import com.example.geoquiz.dataclass.Question
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         Log.d(TAG, "Create() called")
-        listOfQuestions = quizViewModel.listOfQuestions(context = this)
+        listOfQuestions = quizViewModel.listOfQuestions(context = this@MainActivity)
         Log.d(TAG, "Got a QuizViewmodel ${quizViewModel}")
 
         //inflate the layout using view binding
@@ -55,8 +57,13 @@ class MainActivity : AppCompatActivity() {
                 it.isEnabled = false
             }
             quizViewModel.calculatePercentage(listOfQuestions, true)
-        }
+            println(quizViewModel.message)
+            quizViewModel.message.observe(this@MainActivity, { message ->
+                Log.d("MainActivity", "Received message: $message")
+                Toast.makeText(this@MainActivity, message.toInt(), Toast.LENGTH_SHORT).show()
+            })
 
+        }
 
         binding.falseButton.setOnClickListener {
 
@@ -70,6 +77,11 @@ class MainActivity : AppCompatActivity() {
             if (quizViewModel.handleResponse(false) == false) {
                 it.isEnabled = false
             }
+
+            quizViewModel.message.observe(this@MainActivity, { message ->
+                Log.d("MainActivity", "Received message: $message")
+                Toast.makeText(this@MainActivity, message.toInt(), Toast.LENGTH_SHORT).show()
+            })
         }
 
         binding.nextButton.setOnClickListener {
