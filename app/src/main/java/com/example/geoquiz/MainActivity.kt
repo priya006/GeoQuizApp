@@ -48,10 +48,10 @@ class MainActivity : AppCompatActivity() {
                 snackBar("Sorry: The answer is False")
             }
 
-            if (quizViewModel.handleResponse(true) == true) {
+            if (quizViewModel.disableTheButton(true) == true) {
                 it.isEnabled = false
             }
-            quizViewModel.calculatePercentage(listOfQuestions, true)
+            quizViewModel.calculatePercentageOftheCorrectAnswers(listOfQuestions, true)
             showToastMessage()
         }
 
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                 snackBar("Sorry: The answer is True")
             }
 
-            if (quizViewModel.handleResponse(false) == false) {
+            if (quizViewModel.disableTheButton(false) == false) {
                 it.isEnabled = false
             }
 
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         binding.previousButton.setOnClickListener {
             quizViewModel.displayPreviousQuestion(binding, listOfQuestions)
         }
-        quizViewModel.calculatePercentage(listOfQuestions, false)
+        quizViewModel.calculatePercentageOftheCorrectAnswers(listOfQuestions, false)
     }
 
     private fun showToastMessage() {

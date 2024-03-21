@@ -12,31 +12,19 @@ import com.example.geoquiz.dataclass.Question
 class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
 
-    private val CURRENT_INDEX_KEY = "current_index"
-
-    //var currentIndex = 0
     var questionsList = mutableListOf<Question>()
-
     //For the Next Button
     var nextIndex = 0
-
     //For the Previous Button
     var previousIndex = 0
-
     private val _message = MutableLiveData<Double>()
     val message: LiveData<Double> = _message
-
     //saving the data to savedStateHandle. savedStateHandle will be null when the viewmodel is instantiated the first time
-    private var currentIndex = savedStateHandle.get<Int>(CURRENT_INDEX_KEY) ?: 0
-
-    fun getCurrentIndex(): Int {
-        return currentIndex
-    }
-
-    fun setCurrentIndex(index: Int) {
-        currentIndex = index
-        savedStateHandle.set(CURRENT_INDEX_KEY, index)
-    }
+    private var currentIndex: Int
+        get() = savedStateHandle.get<Int>(CURRENT_INDEX_KEY) ?: 0
+        set(index){
+            savedStateHandle.set(CURRENT_INDEX_KEY, index)
+        }
 
     //TODO: violation of best practice we must not refer context from viewmodel class. Once we learn dependency injection we can remove context
     fun listOfQuestions(context: Context): MutableList<Question> {
@@ -47,7 +35,11 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
         return questionsList
     }
 
-    fun handleResponse(userInput: Boolean): Boolean {
+     /*
+      Disable the True or false button when the answer  from the user matches with what is defined in the
+      Question Object data class
+      */
+    fun disableTheButton(userInput: Boolean): Boolean {
 
         //Check the answer in the questionList if the answer is true the disable the true button
         if (questionsList[nextIndex].answer == true) {
@@ -65,7 +57,7 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
   Need to make a note of the correct answer - get the number
   no of correct answers/total no of answer(3) = answer*100
  */
-    fun calculatePercentage(listOfQuestions: List<Question>, userAnswer: Boolean) {
+    fun calculatePercentageOftheCorrectAnswers(listOfQuestions: List<Question>, userAnswer: Boolean) {
         val listOfBooleans: MutableList<Boolean> = mutableListOf()
         //compare the user answer and the answer in the Question object
         if (listOfQuestions[currentIndex].answer == userAnswer) {
@@ -81,8 +73,8 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
     fun displayNextQuestion(binding: ActivityMainBinding, listOfQuestions: List<Question>) {
         binding.falseButton.isEnabled = true
         binding.trueButton.isEnabled = true
-        if (getCurrentIndex() < listOfQuestions.size) {
-            nextIndex = getCurrentIndex()
+        if (currentIndex < listOfQuestions.size) {
+            nextIndex = currentIndex
             //Get the questions
             var firstQuestion = listOfQuestions[nextIndex]
             binding.textView.text = firstQuestion.questionString
@@ -110,5 +102,9 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
             return true
         }
         return false
+    }
+
+    companion object{
+        private val CURRENT_INDEX_KEY = "current_index"
     }
 }
