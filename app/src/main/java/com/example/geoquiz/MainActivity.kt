@@ -21,8 +21,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SuspiciousIndentation")
 
 
-    //For the Previous Button
-    var previousIndex = 0
+
 
     private lateinit var listOfQuestions: List<Question>
     private lateinit var binding: ActivityMainBinding
@@ -41,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.textView.setOnClickListener {
-            displayNextQuestion()
+            quizViewModel.displayNextQuestion(binding,listOfQuestions)
         }
 
         binding.trueButton.setOnClickListener {
@@ -79,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.nextButton.setOnClickListener {
-            displayNextQuestion()
+            quizViewModel.displayNextQuestion(binding,listOfQuestions)
         }
 
         binding.previousButton.setOnClickListener {
@@ -96,31 +95,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun displayNextQuestion() {
-        binding.falseButton.isEnabled = true
-        binding.trueButton.isEnabled = true
-        val textView = findViewById<TextView>(R.id.text_view)
-        if (quizViewModel.getCurrentIndex() < listOfQuestions.size) {
-            quizViewModel.nextIndex = quizViewModel.getCurrentIndex()
-            //Get the questions
-            var firstQuestion = listOfQuestions[quizViewModel.nextIndex]
-            textView.text = firstQuestion.questionString
-            previousIndex = quizViewModel.nextIndex - 1
-            if (quizViewModel.nextIndex <= 2) {
-                quizViewModel.nextIndex++
-            }
-        } else {
-            //reset the nextIndex
-            quizViewModel.nextIndex = 0
-        }
-
-    }
-
 
     private fun displayPreviousQuestion() {
         val textView = findViewById<TextView>(R.id.text_view)
         //Get the questions
-        var firstQuestion = listOfQuestions.get(previousIndex)
+        var firstQuestion = listOfQuestions.get(quizViewModel.previousIndex)
         textView.text = firstQuestion.questionString
     }
 

@@ -1,12 +1,14 @@
 package com.example.geoquiz.ViewModel
 
 import android.content.Context
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.geoquiz.R
+import com.example.geoquiz.databinding.ActivityMainBinding
 import com.example.geoquiz.dataclass.Question
 
 class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
@@ -17,6 +19,9 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
     var questionsList = mutableListOf<Question>()
     //For the Next Button
     var nextIndex = 0
+
+    //For the Previous Button
+    var previousIndex = 0
 
     private val _message = MutableLiveData<Double>()
     val message:LiveData<Double> = _message
@@ -71,5 +76,27 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
          val messageToBeDisplayed = "${percentage}".toDouble()
             _message.value = messageToBeDisplayed
     }
+
+
+
+     fun displayNextQuestion(binding: ActivityMainBinding,listOfQuestions: List<Question>) {
+        binding.falseButton.isEnabled = true
+        binding.trueButton.isEnabled = true
+        if (getCurrentIndex() < listOfQuestions.size) {
+            nextIndex = getCurrentIndex()
+            //Get the questions
+            var firstQuestion = listOfQuestions[nextIndex]
+            binding.textView.text = firstQuestion.questionString
+            previousIndex = nextIndex - 1
+            if (nextIndex <= 2) {
+                nextIndex++
+            }
+        } else {
+            //reset the nextIndex
+            nextIndex = 0
+        }
+
+    }
+
 
 }
