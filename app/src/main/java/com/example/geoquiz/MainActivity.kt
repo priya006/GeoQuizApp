@@ -26,8 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var listOfQuestions: List<Question>
     private lateinit var binding: ActivityMainBinding
-
-    // private var quizViewModel: QuizViewModel by viewModels()
     private val quizViewModel: QuizViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -151,8 +149,6 @@ class MainActivity : AppCompatActivity() {
 
         return false
     }
-
-
 }
 
 

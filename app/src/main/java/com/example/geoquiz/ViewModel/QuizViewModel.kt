@@ -70,7 +70,6 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
         val percentage = (listOfBooleans.size.toDouble() / questionsList.size.toDouble()) * 100
          val messageToBeDisplayed = "${percentage}".toDouble()
             _message.value = messageToBeDisplayed
-        println(   _message.value)
     }
 
 }
