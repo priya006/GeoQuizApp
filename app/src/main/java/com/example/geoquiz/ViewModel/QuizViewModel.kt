@@ -4,19 +4,34 @@ import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.geoquiz.R
 import com.example.geoquiz.dataclass.Question
 
-class QuizViewModel : ViewModel() {
+class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    var currentIndex = 0
+
+    private val CURRENT_INDEX_KEY = "current_index"
+    //var currentIndex = 0
     var questionsList = mutableListOf<Question>()
     //For the Next Button
     var nextIndex = 0
 
     private val _message = MutableLiveData<Double>()
     val message:LiveData<Double> = _message
+
+    //saving the data to savedStateHandle. savedStateHandle will be null when the viewmodel is instantiated the first time
+    private var currentIndex = savedStateHandle.get<Int>(CURRENT_INDEX_KEY) ?: 0
+
+    fun getCurrentIndex():Int{
+        return currentIndex
+    }
+
+    fun setCurrentIndex(index:Int){
+        currentIndex  = index
+        savedStateHandle.set(CURRENT_INDEX_KEY,index)
+    }
 
     //TODO we must not refer context from viewmodel class. we must remove context
     //List Of Questions
@@ -25,7 +40,6 @@ class QuizViewModel : ViewModel() {
         questionsList.add(Question(context.getString(R.string.question_mideast), true))
         questionsList.add(Question(context.getString(R.string.question_oceans), false))
         questionsList.add(Question(context.getString(R.string.question_asia), false))
-
         return questionsList
     }
 

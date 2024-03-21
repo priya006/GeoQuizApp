@@ -102,8 +102,8 @@ class MainActivity : AppCompatActivity() {
         binding.falseButton.isEnabled = true
         binding.trueButton.isEnabled = true
         val textView = findViewById<TextView>(R.id.text_view)
-        if (quizViewModel.currentIndex < listOfQuestions.size) {
-            quizViewModel.nextIndex = quizViewModel.currentIndex
+        if (quizViewModel.getCurrentIndex() < listOfQuestions.size) {
+            quizViewModel.nextIndex = quizViewModel.getCurrentIndex()
             //Get the questions
             var firstQuestion = listOfQuestions[quizViewModel.nextIndex]
             textView.text = firstQuestion.questionString
