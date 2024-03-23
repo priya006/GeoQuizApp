@@ -2,6 +2,7 @@ package com.example.geoquiz.Activity
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Intent
 
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +16,7 @@ import com.example.geoquiz.dataclass.Question
 import com.google.android.material.snackbar.Snackbar
 
 
-class MainActivity : AppCompatActivity() {
+class GeoQuizActivity : AppCompatActivity() {
     @SuppressLint("SuspiciousIndentation")
 
 
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         Log.d(TAG, "Create() called")
-        listOfQuestions = quizViewModel.listOfQuestions(context = this@MainActivity)
+        listOfQuestions = quizViewModel.listOfQuestions(context = this@GeoQuizActivity)
         Log.d(TAG, "Got a QuizViewmodel ${quizViewModel}")
 
         //inflate the layout using view binding
@@ -80,12 +81,18 @@ class MainActivity : AppCompatActivity() {
             quizViewModel.displayPreviousQuestion(binding, listOfQuestions)
         }
         quizViewModel.calculatePercentageOftheCorrectAnswers(listOfQuestions, false)
+
+        binding.cheatButton?.setOnClickListener {
+            val intent = Intent(this,CheatActivity::class.java)
+            //From GeoQuizActivity we are intending to start CheatActivity
+            startActivity(intent)
+        }
     }
 
     private fun showToastMessage() {
         quizViewModel.message.observe(this, Observer { message ->
             Log.d("MainActivity", "Received message: $message")
-            Toast.makeText(this@MainActivity, message.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@GeoQuizActivity, message.toString(), Toast.LENGTH_SHORT).show()
         })
     }
 
