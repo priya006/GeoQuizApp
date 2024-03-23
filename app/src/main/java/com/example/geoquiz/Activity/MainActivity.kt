@@ -1,4 +1,4 @@
-package com.example.geoquiz
+package com.example.geoquiz.Activity
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
