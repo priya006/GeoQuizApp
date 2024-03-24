@@ -20,9 +20,12 @@ class CheatActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, callBack)
 
         val answer = intent.getBooleanExtra(EXTRA_KEY, false)
-        //Show answer button is clicked and answer displays
+        //Show answer button is clicked and answer displays in textview
         cheatActivityBinding.showanswer.setOnClickListener {
-            cheatActivityBinding.answerTextView.text = answer.toString()
+            cheatActivityBinding.answerTextView.text =     when(answer){
+                true -> true.toString()
+                else -> { false.toString()}
+            }
         }
     }
 
