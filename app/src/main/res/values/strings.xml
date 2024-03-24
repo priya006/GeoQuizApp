@@ -16,5 +16,6 @@
     <string name="question_asia1">Asia is awesome!</string>
     <string name="show_answer_button">Show the answer</string>
     <string name="warning_text">Are you Sure you want to do this!</string>
+    <string name="answer_text">Sample answer!</string>
 
 </resources>

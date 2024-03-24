@@ -83,8 +83,7 @@ class GeoQuizActivity : AppCompatActivity() {
         quizViewModel.calculatePercentageOftheCorrectAnswers(listOfQuestions, false)
 
         binding.cheatButton?.setOnClickListener {
-            val intent = Intent(this,CheatActivity::class.java)
-            //From GeoQuizActivity we are intending to start CheatActivity
+            val intent = CheatActivity.newIntent(this@GeoQuizActivity ,listOfQuestions[quizViewModel.nextIndex].answer)
             startActivity(intent)
         }
     }
