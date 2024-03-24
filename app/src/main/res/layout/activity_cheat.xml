@@ -20,7 +20,7 @@
         android:text="Answer" />
 
     <Button
-        android:id="@+id/answer"
+        android:id="@+id/showanswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/answer_text_view"

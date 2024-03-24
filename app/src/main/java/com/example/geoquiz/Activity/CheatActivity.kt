@@ -20,7 +20,10 @@ class CheatActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, callBack)
 
         val answer = intent.getBooleanExtra(EXTRA_KEY, false)
-        cheatActivityBinding.answerTextView.text = answer.toString()
+        //Show answer button is clicked and answer displays
+        cheatActivityBinding.showanswer.setOnClickListener {
+            cheatActivityBinding.answerTextView.text = answer.toString()
+        }
     }
 
 
@@ -33,6 +36,16 @@ class CheatActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Creates a new [Intent] to start [CheatActivity] with the specified answer.
+     *
+     * This method creates an intent to start [CheatActivity] with the necessary extras.
+     * The answer parameter determines whether the answer is true or false and is passed as an extra.
+     *
+     * @param packageContext The context from which the intent will be created.
+     * @param answer The boolean value representing whether the answer is true or false.
+     * @return An [Intent] object to start [CheatActivity] with the specified answer as an extra.
+     */
     companion object {
         private const val EXTRA_KEY = "EXTRA_KEY"
         fun newIntent(packageContext: Context, answer: Boolean): Intent {
