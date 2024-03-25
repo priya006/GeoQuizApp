@@ -86,8 +86,6 @@ class GeoQuizActivity : AppCompatActivity() {
                 this@GeoQuizActivity,
                 listOfQuestions[quizViewModel.nextIndex].answer
             )
-            // Start Child activity using startActivity
-            startActivity(intent)
 
             // Start an activity for result using registerForActivityResult
             startActivityForResult.launch(intent)
@@ -122,7 +120,7 @@ class GeoQuizActivity : AppCompatActivity() {
                 Toast.makeText(
                     this@GeoQuizActivity,
                     "Received result from ChildActivity $quizViewModel.isCheater",
-                    Toast.LENGTH_SHORT
+                    Toast.LENGTH_LONG
                 )
             }
         }

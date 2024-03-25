@@ -99,7 +99,7 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
         var firstQuestion = listOfQuestions.get(previousIndex)
         binding.textView.text = firstQuestion.questionString
     }
-
+    //Check if the user cheated and respond appropriately
      fun checkAnswer(answer: Boolean,listOfQuestions: List<Question>): Boolean {
         //get the current Question object
         if (listOfQuestions[nextIndex].answer == answer) {
