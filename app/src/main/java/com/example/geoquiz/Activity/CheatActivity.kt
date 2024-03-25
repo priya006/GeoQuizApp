@@ -1,9 +1,11 @@
 package com.example.geoquiz.Activity
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import com.example.geoquiz.databinding.ActivityCheatBinding
 
@@ -18,6 +20,7 @@ class CheatActivity : AppCompatActivity() {
         cheatActivityBinding = ActivityCheatBinding.inflate(layoutInflater)
         setContentView(cheatActivityBinding.root)
 
+        Log.d(TAG, "onCreate: Activity created")
 
         val answer = intent.getBooleanExtra(EXTRA_KEY, false)
         //Show answer button is clicked and answer displays in textview
@@ -28,13 +31,15 @@ class CheatActivity : AppCompatActivity() {
             }
 
             setResult(answer)
-
+            finish()
              val callBack = object : OnBackPressedCallback(true) {
                 /**
                  * Callback for handling the [OnBackPressedDispatcher.onBackPressed] event.
                  */
                 override fun handleOnBackPressed() {
                     finish()
+                    Log.d(TAG, "Finish: Finish")
+
                 }
             }
             onBackPressedDispatcher.addCallback(this, callBack)
@@ -47,7 +52,7 @@ class CheatActivity : AppCompatActivity() {
         }
         //This result is sent back to the calling parent activity which is GeoQuizActivity
         setResult(RESULT_OK, intent)
-        finish()
+
     }
 
 

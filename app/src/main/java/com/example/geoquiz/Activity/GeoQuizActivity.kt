@@ -118,10 +118,10 @@ class GeoQuizActivity : AppCompatActivity() {
 
             if (result.resultCode == RESULT_OK) {
                 //get the data from Intent
-                val dataFromIntent = result.data?.getStringExtra("answer_shown")
+                quizViewModel.isCheater = result.data?.getBooleanExtra("answer_shown",false) ?: false
                 Toast.makeText(
                     this@GeoQuizActivity,
-                    "Received result from ChildActivity $dataFromIntent",
+                    "Received result from ChildActivity $quizViewModel.isCheater",
                     Toast.LENGTH_SHORT
                 )
             }

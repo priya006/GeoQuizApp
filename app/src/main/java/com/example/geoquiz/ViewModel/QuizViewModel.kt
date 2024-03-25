@@ -26,6 +26,10 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
             savedStateHandle.set(CURRENT_INDEX_KEY, index)
         }
 
+     var isCheater : Boolean
+        get() = savedStateHandle.get<Boolean>(IS_CHEATER_KEY) ?: false
+        set(value) = savedStateHandle.set(IS_CHEATER_KEY , value)
+
     //TODO: violation of best practice we must not refer context from viewmodel class. Once we learn dependency injection we can remove context
     fun listOfQuestions(context: Context): MutableList<Question> {
 
@@ -106,5 +110,6 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
 
     companion object{
         private val CURRENT_INDEX_KEY = "current_index"
+        private val IS_CHEATER_KEY = "cheater"
     }
 }
