@@ -110,6 +110,12 @@ class GeoQuizActivity : AppCompatActivity() {
         Snackbar.make(binding.root, toastMessage, Snackbar.LENGTH_SHORT).show()
     }
 
+    /**
+     * Sets up a [registerForActivityResult] to handle activity results in the [GeoQuizActivity].
+     * When the result is received from the child activity (launched with [startActivityForResult]),
+     * it checks if the resultCode is [Activity.RESULT_OK]. If it is, it extracts the string extra
+     * with the key "answer_shown" from the result Intent and displays it in a toast message.
+     */
     private val startActivityForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
