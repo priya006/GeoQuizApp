@@ -17,36 +17,41 @@ class CheatActivity : AppCompatActivity() {
         //Initialize the binding object
         cheatActivityBinding = ActivityCheatBinding.inflate(layoutInflater)
         setContentView(cheatActivityBinding.root)
-        onBackPressedDispatcher.addCallback(this, callBack)
+
 
         val answer = intent.getBooleanExtra(EXTRA_KEY, false)
         //Show answer button is clicked and answer displays in textview
         cheatActivityBinding.showanswer.setOnClickListener {
-            cheatActivityBinding.answerTextView.text = when (answer) {
-                true -> true.toString()
-                else -> {
-                    false.toString()
+            cheatActivityBinding.answerTextView.text =     when(answer){
+                true -> "true"
+                else -> { "false"}
+            }
+
+            setResult(answer)
+
+             val callBack = object : OnBackPressedCallback(true) {
+                /**
+                 * Callback for handling the [OnBackPressedDispatcher.onBackPressed] event.
+                 */
+                override fun handleOnBackPressed() {
+                    finish()
                 }
             }
-
-            val intent = Intent().apply {
-                putExtra("answer_shown", answer)
-            }
-            //This result is sent back to the calling parent activity which is GeoQuizActivity
-            setResult(RESULT_OK, intent)
-            finish()
+            onBackPressedDispatcher.addCallback(this, callBack)
         }
     }
 
-
-    private val callBack = object : OnBackPressedCallback(true) {
-        /**
-         * Callback for handling the [OnBackPressedDispatcher.onBackPressed] event.
-         */
-        override fun handleOnBackPressed() {
-            finish()
+    private fun setResult(answer: Boolean) {
+        val intent = Intent().apply {
+            putExtra("answer_shown", answer)
         }
+        //This result is sent back to the calling parent activity which is GeoQuizActivity
+        setResult(RESULT_OK, intent)
+        finish()
     }
+
+
+
 
     /**
      * Creates a new [Intent] to start [CheatActivity] with the specified answer.

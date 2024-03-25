@@ -6,7 +6,6 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +14,6 @@ import com.example.geoquiz.ViewModel.QuizViewModel
 import com.example.geoquiz.databinding.ActivityMainBinding
 import com.example.geoquiz.dataclass.Question
 import com.google.android.material.snackbar.Snackbar
-import java.time.Duration
-
 
 class GeoQuizActivity : AppCompatActivity() {
     @SuppressLint("SuspiciousIndentation")
