@@ -22,10 +22,19 @@ class CheatActivity : AppCompatActivity() {
         val answer = intent.getBooleanExtra(EXTRA_KEY, false)
         //Show answer button is clicked and answer displays in textview
         cheatActivityBinding.showanswer.setOnClickListener {
-            cheatActivityBinding.answerTextView.text =     when(answer){
+            cheatActivityBinding.answerTextView.text = when (answer) {
                 true -> true.toString()
-                else -> { false.toString()}
+                else -> {
+                    false.toString()
+                }
             }
+
+            val intent = Intent().apply {
+                putExtra("answer_shown", answer)
+            }
+            //This result is sent back to the calling parent activity which is GeoQuizActivity
+            setResult(RESULT_OK, intent)
+            finish()
         }
     }
 

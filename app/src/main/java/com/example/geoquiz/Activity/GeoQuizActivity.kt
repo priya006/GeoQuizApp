@@ -6,6 +6,8 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -13,6 +15,7 @@ import com.example.geoquiz.ViewModel.QuizViewModel
 import com.example.geoquiz.databinding.ActivityMainBinding
 import com.example.geoquiz.dataclass.Question
 import com.google.android.material.snackbar.Snackbar
+import java.time.Duration
 
 
 class GeoQuizActivity : AppCompatActivity() {
@@ -42,7 +45,7 @@ class GeoQuizActivity : AppCompatActivity() {
         binding.trueButton.setOnClickListener {
 
             //Check the question object
-            if (quizViewModel.checkAnswer(true,listOfQuestions)) {
+            if (quizViewModel.checkAnswer(true, listOfQuestions)) {
                 snackBar("Correct: The answer is True")
             } else {
                 snackBar("Sorry: The answer is False")
@@ -59,7 +62,7 @@ class GeoQuizActivity : AppCompatActivity() {
         binding.falseButton.setOnClickListener {
 
             //Registering the callBack to run
-            if (quizViewModel.checkAnswer(false,listOfQuestions)) {
+            if (quizViewModel.checkAnswer(false, listOfQuestions)) {
                 snackBar("Correct: The answer is false")
             } else {
                 snackBar("Sorry: The answer is True")
@@ -82,8 +85,15 @@ class GeoQuizActivity : AppCompatActivity() {
         quizViewModel.calculatePercentageOftheCorrectAnswers(listOfQuestions, false)
 
         binding.cheatButton?.setOnClickListener {
-            val intent = CheatActivity.newIntent(this@GeoQuizActivity ,listOfQuestions[quizViewModel.nextIndex].answer)
+            val intent = CheatActivity.newIntent(
+                this@GeoQuizActivity,
+                listOfQuestions[quizViewModel.nextIndex].answer
+            )
+            // Start Child activity using startActivity
             startActivity(intent)
+
+            // Start an activity for result using registerForActivityResult
+            startActivityForResult.launch(intent)
         }
     }
 
@@ -99,6 +109,20 @@ class GeoQuizActivity : AppCompatActivity() {
     private fun snackBar(toastMessage: String) {
         Snackbar.make(binding.root, toastMessage, Snackbar.LENGTH_SHORT).show()
     }
+
+    private val startActivityForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+
+            if (result.resultCode == RESULT_OK) {
+                //get the data from Intent
+                val dataFromIntent = result.data?.getStringExtra("answer_shown")
+                Toast.makeText(
+                    this@GeoQuizActivity,
+                    "Received result from ChildActivity $dataFromIntent",
+                    Toast.LENGTH_SHORT
+                )
+            }
+        }
 }
 
 
