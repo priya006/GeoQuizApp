@@ -98,6 +98,8 @@ class GeoQuizActivity : AppCompatActivity() {
             // Start an activity for result using registerForActivityResult
             startActivityForResult.launch(intent)
         }
+        val apiLevel = "API Level ${Build.VERSION.SDK_INT}"
+        binding.apiLevel?.text  = apiLevel
     }
 
     private fun showToastMessage() {
