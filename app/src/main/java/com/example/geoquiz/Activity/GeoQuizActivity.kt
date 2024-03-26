@@ -2,13 +2,20 @@ package com.example.geoquiz.Activity
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.graphics.BlurMaskFilter
+import android.graphics.RenderEffect
+import android.graphics.Shader
+import android.os.Build
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import com.example.geoquiz.ViewModel.QuizViewModel
 import com.example.geoquiz.databinding.ActivityMainBinding
@@ -23,6 +30,7 @@ class GeoQuizActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val quizViewModel: QuizViewModel by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -80,7 +88,7 @@ class GeoQuizActivity : AppCompatActivity() {
             quizViewModel.displayPreviousQuestion(binding, listOfQuestions)
         }
         quizViewModel.calculatePercentageOftheCorrectAnswers(listOfQuestions, false)
-
+        binding.cheatButton?.let { applyBlurEffect(it) }
         binding.cheatButton?.setOnClickListener {
             val intent = CheatActivity.newIntent(
                 this@GeoQuizActivity,
@@ -124,6 +132,19 @@ class GeoQuizActivity : AppCompatActivity() {
                 )
             }
         }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun applyBlurEffect(cheatButton : View){
+        //createBlurEffect is available only from API level 31
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val blurEffect = RenderEffect.createBlurEffect(2f, 2f, Shader.TileMode.MIRROR)
+            cheatButton.setRenderEffect(blurEffect)
+        } else {
+            // Fallback for older devices
+        }
+
+    }
+
 }
 
 

@@ -52,4 +52,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation ("androidx.activity:activity-ktx:1.4.0")
+    implementation ("androidx.core:core-ktx:1.7.0")
 }
