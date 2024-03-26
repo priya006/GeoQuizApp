@@ -89,7 +89,9 @@ class GeoQuizActivity : AppCompatActivity() {
         }
         quizViewModel.calculatePercentageOftheCorrectAnswers(listOfQuestions, false)
         binding.cheatButton?.let { applyBlurEffect(it) }
+        var noOfTimesCheatClicked = 0
         binding.cheatButton?.setOnClickListener {
+            noOfTimesCheatClicked ++
             val intent = CheatActivity.newIntent(
                 this@GeoQuizActivity,
                 listOfQuestions[quizViewModel.nextIndex].answer
@@ -97,6 +99,12 @@ class GeoQuizActivity : AppCompatActivity() {
 
             // Start an activity for result using registerForActivityResult
             startActivityForResult.launch(intent)
+
+            //After the button is clicked thrice we disable the button
+            if(noOfTimesCheatClicked > 2)
+            {
+                binding.cheatButton?.let { it.isEnabled = false}
+            }
         }
         val apiLevel = "API Level ${Build.VERSION.SDK_INT}"
         binding.apiLevel?.text  = apiLevel
